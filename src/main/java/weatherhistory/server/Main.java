@@ -2,7 +2,6 @@ package weatherhistory.server;
 
 import java.util.Optional;
 
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 
 public class Main 
@@ -26,17 +25,12 @@ public class Main
     
     public static void StartServer() throws Exception 
     {
-    	//String baseFilePath = "src/main/webapp/";
         String contextPath = "/";
         String appBase = ".";
         Tomcat tomcat = new Tomcat();     
         tomcat.setPort(Integer.valueOf(port.orElse("8080")));
         tomcat.getHost().setAppBase(appBase);
-        StandardContext context = (StandardContext)tomcat.addWebapp(contextPath, appBase);
-        //context.addServletContainerInitializer(sci, classes);
-        //StandardContext context = (StandardContext)tomcat.addWebapp(contextPath, new File(baseFilePath).getAbsolutePath());
-        //System.out.println("configuring app with basedir: " + new File("./" + baseFilePath).getAbsolutePath());
-        
+        tomcat.addWebapp(contextPath, appBase);
         tomcat.start();
         tomcat.getServer().await();
     }

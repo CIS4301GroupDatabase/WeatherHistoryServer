@@ -28,6 +28,7 @@ public class Config
 		if (configFile.exists())
 		{
 			getConfig(configFile);
+			System.out.println("Loaded weatherhistory-config.txt");
 		}
 		else
 		{

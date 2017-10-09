@@ -77,6 +77,16 @@
     	<version>4.0.0</version>
     	<scope>provided</scope>
 	</dependency>
+	<dependency>
+    	<groupId>com.ohadr</groupId>
+    	<artifactId>ohadr.commons</artifactId>
+    	<version>0.3</version>
+	</dependency>
+	<dependency>
+    	<groupId>com.cedarsoftware</groupId>
+    	<artifactId>json-io</artifactId>
+    	<version>4.5.0</version>
+	</dependency>
   </dependencies>
 	<repositories>
     <repository>
@@ -114,6 +124,7 @@
         <descriptorRefs>
           <descriptorRef>jar-with-dependencies</descriptorRef>
         </descriptorRefs>
+        <appendAssemblyId>false</appendAssemblyId>
         <finalName>weatherhistory-server-${project.version}</finalName>
         <archive>
           <manifest>
