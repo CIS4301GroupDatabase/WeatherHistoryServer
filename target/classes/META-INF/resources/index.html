@@ -56,6 +56,11 @@
         color: #0021A4;
       }
 
+      .daily-stats .stat span {
+        display: inline-block;
+        width: 50px;
+      }
+
       .advanced-stats h6 {
         margin: 10px 0 0 0;
         font-size: 10px;
@@ -162,7 +167,7 @@
                   </select>
                 </div>
 
-                <div class="input-div input-date from-date">
+                <div class="input-div input-date to-date">
                   <label>TO</label>
 
                   <select name="month">
@@ -218,73 +223,8 @@
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../vendor/canvasjs/canvasjs.min.js"></script>
 
+    <script src="../graphs.js"></script>
+    <script src="../app.js"></script>
+
   </body>
-
-  <script type="text/javascript">
-      window.onload = function () {
-	  
-          var testURL = "http://localhost:8080/weatherdata?data=SELECT total_precipitation, conditon_date FROM daily_condition WHERE total_precipitation > '2.0' AND peak_wind_speed > '5.0'";
-		  var testoutput;
-		  
-		  $.ajax({
-			type: "GET",
-			url: testURL,
-			dataType: "json",
-			success: function(json){
-				console.log("We got some data");
-				console.log(json);
-			},
-			error: function() {
-				console.log("Failed to get data query");
-			}
-		  });
-		  
-
-		  
-          var dailyChart = new CanvasJS.Chart("daily-stats-graph", {
-              theme: "light1", // "light2", "dark1", "dark2"
-              animationEnabled: true, // change to true
-              title:{
-                  text: "Gainesville Airport - Jan 1, 1970 - Temperature"
-              },
-              data: [
-                  {
-                      // Change type to "bar", "area", "spline", "pie",etc.
-                      type: "line",
-                      dataPoints: [
-                          { label: "apple",  y: 10  },
-                          { label: "orange", y: 15  },
-                          { label: "banana", y: 25  },
-                          { label: "mango",  y: 30  },
-                          { label: "grape",  y: 28  }
-                      ]
-                  }
-              ]
-          });
-          dailyChart.render();
-
-          var advancedChart = new CanvasJS.Chart("advanced-stats-graph", {
-              theme: "light1", // "light2", "dark1", "dark2"
-              animationEnabled: true, // change to true
-              title:{
-                  text: "Gainesville Airport - Jan 1, 1970 - Jan 2, 1970 - Daily - Average - Temperature"
-              },
-              data: [
-                  {
-                      // Change type to "bar", "area", "spline", "pie",etc.
-                      type: "line",
-                      dataPoints: [
-                          { label: "apple",  y: 10  },
-                          { label: "orange", y: 15  },
-                          { label: "banana", y: 25  },
-                          { label: "mango",  y: 30  },
-                          { label: "grape",  y: 28  }
-                      ]
-                  }
-              ]
-          });
-          advancedChart.render();
-
-      }
-  </script>
 </html>
