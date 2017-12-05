@@ -1,8 +1,290 @@
-<html>   
-<link href="../webjars/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet" />
-<body>
-<h2>The Weather History Server Lives!</h2>
-<script src="../webjars/jquery/3.2.1/jquery.js"></script> 
-<script src="../webjars/bootstrap/3.3.5/js/bootstrap.js"></script> 
-</body>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Weather History & Trends</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+
+      .navbar {
+        background-color: #0021A4 !important;
+      }
+
+      .navbar a {
+        color: white !important;
+      }
+
+      .daily-stats, .advanced-stats {
+        margin: 10px 0 0 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .daily-stats h5, .advanced-stats h5 {
+        text-transform: uppercase;
+        font-size: 16px;
+        color: #0021A4;
+        margin-bottom: 15px;
+      }
+
+      .daily-stats .stat {
+        margin: 20px 15px 10px 0;
+        font-size: 16px;
+        float: left;
+      }
+
+      .daily-stats .stat strong {
+        text-transform: uppercase;
+        color: #0021A4;
+      }
+
+      .advanced-stats h6 {
+        margin: 10px 0 0 0;
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #0021A4;
+      }
+
+      .advanced-stats .input-div {
+        margin-bottom: 8px;
+      }
+
+      .advanced-stats .input-div label {
+        color: #0021A4;
+        width: 100%;
+        margin: 0;
+        font-size: 12px;
+        font-weight: bold;
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Weather History & Trends</a>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 daily-stats">
+          <h5>DAILY STATS</h5>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-lg-12">
+                  <form class="daily-stats-form">
+                    <select name="weather-station">
+                      <option value="gainesville">Gainesville Airport</option>
+                    </select>
+
+                    <select name="month">
+                      <option value="1">Jan</option>
+                    </select>
+
+                    <select name="day">
+                      <option value="1">1</option>
+                    </select>
+
+                    <select name="year">
+                      <option value="1">1970</option>
+                    </select>
+
+                    <select name="graphType">
+                      <option value="temperature">Temperature</option>
+                      <option value="humidity">Humidity</option>
+                      <option value="precipitation">Precipitation</option>
+                      <option value="windSpeed">Wind Speed</option>
+                    </select>
+                  </form>
+                </div>
+                <div class="col-lg-12">
+                  <div class="stat"><strong>Latitude:</strong> <span class="latitude">20</span></div>
+                  <div class="stat"><strong>Longitude:</strong> <span class="longitude">20</span></div>
+                  <div class="stat"><strong>Sunrise:</strong> <span class="sunrise">6:00AM</span></div>
+                  <div class="stat"><strong>Sunset:</strong> <span class="sunset">6:00PM</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div id="daily-stats-graph" style="height: 175px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 advanced-stats">
+          <h5>ADVANCED STATS & SEARCH</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <form class="advanced-stats-form">
+                <div class="input-div">
+                  <select name="weather-station">
+                    <option value="gainesville">Gainesville Airport</option>
+                  </select>
+                </div>
+
+
+                <div class="input-div input-date from-date">
+                  <label>FROM</label>
+                  <select name="month">
+                    <option value="1">Jan</option>
+                  </select>
+
+                  <select name="day">
+                    <option value="1">1</option>
+                  </select>
+
+                  <select name="year">
+                    <option value="1">1970</option>
+                  </select>
+                </div>
+
+                <div class="input-div input-date from-date">
+                  <label>TO</label>
+
+                  <select name="month">
+                    <option value="1">Jan</option>
+                  </select>
+
+                  <select name="day">
+                    <option value="2">2</option>
+                  </select>
+
+                  <select name="year">
+                    <option value="1">1970</option>
+                  </select>
+                </div>
+
+                <div class="input-div">
+                  <label>STEP SIZE</label>
+                  <select name="stepSize">
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                  </select>
+                </div>
+
+                <div class="input-div">
+                  <label>AGGREGATE</label>
+                  <label><input type="checkbox" name="average" /> Average</label>
+                  <label><input type="checkbox" name="min" /> Min</label>
+                  <label><input type="checkbox" name="max" /> Max</label>
+                </div>
+
+                <div class="input-div">
+                  <label>TYPE</label>
+                  <select name="graphType">
+                    <option value="temperature">Temperature</option>
+                    <option value="humidity">Humidity</option>
+                    <option value="precipitation">Precipitation</option>
+                    <option value="windSpeed">Wind Speed</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-8">
+              <div id="advanced-stats-graph" style="height: 300px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/canvasjs/canvasjs.min.js"></script>
+
+  </body>
+
+  <script type="text/javascript">
+      window.onload = function () {
+	  
+          var testURL = "http://localhost:8080/weatherdata?data=SELECT total_precipitation, conditon_date FROM daily_condition WHERE total_precipitation > '2.0' AND peak_wind_speed > '5.0'";
+		  var testoutput;
+		  
+		  $.ajax({
+			type: "GET",
+			url: testURL,
+			dataType: "json",
+			success: function(json){
+				console.log("We got some data");
+				console.log(json);
+			},
+			error: function() {
+				console.log("Failed to get data query");
+			}
+		  });
+		  
+
+		  
+          var dailyChart = new CanvasJS.Chart("daily-stats-graph", {
+              theme: "light1", // "light2", "dark1", "dark2"
+              animationEnabled: true, // change to true
+              title:{
+                  text: "Gainesville Airport - Jan 1, 1970 - Temperature"
+              },
+              data: [
+                  {
+                      // Change type to "bar", "area", "spline", "pie",etc.
+                      type: "line",
+                      dataPoints: [
+                          { label: "apple",  y: 10  },
+                          { label: "orange", y: 15  },
+                          { label: "banana", y: 25  },
+                          { label: "mango",  y: 30  },
+                          { label: "grape",  y: 28  }
+                      ]
+                  }
+              ]
+          });
+          dailyChart.render();
+
+          var advancedChart = new CanvasJS.Chart("advanced-stats-graph", {
+              theme: "light1", // "light2", "dark1", "dark2"
+              animationEnabled: true, // change to true
+              title:{
+                  text: "Gainesville Airport - Jan 1, 1970 - Jan 2, 1970 - Daily - Average - Temperature"
+              },
+              data: [
+                  {
+                      // Change type to "bar", "area", "spline", "pie",etc.
+                      type: "line",
+                      dataPoints: [
+                          { label: "apple",  y: 10  },
+                          { label: "orange", y: 15  },
+                          { label: "banana", y: 25  },
+                          { label: "mango",  y: 30  },
+                          { label: "grape",  y: 28  }
+                      ]
+                  }
+              ]
+          });
+          advancedChart.render();
+
+      }
+  </script>
 </html>
