@@ -133,7 +133,7 @@ public class WeatherServlet extends HttpServlet
 			{
 				String column_name = metadata.getColumnName(i);
 				Object data = resultSet.getObject(column_name);
-				if (column_name.contentEquals("CONDITION_DATE") || column_name.contentEquals("CONDITON_DATE") || column_name.contentEquals("SUNRISE_TIME") ||column_name.contentEquals("SUNSET_TIME"))
+				if (column_name.contentEquals("CONDITION_DATE") || column_name.contentEquals("TIME") || column_name.contentEquals("SUNRISE_TIME") ||column_name.contentEquals("SUNSET_TIME"))
 				{
 					Timestamp time = (Timestamp) data;
 					String date = time.toString();

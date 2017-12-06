@@ -65,6 +65,7 @@
 
                     plotData.push({
                         type: "line",
+                        xValueType: "dateTime",
                         dataPoints: coordinates
                     });
                 }
