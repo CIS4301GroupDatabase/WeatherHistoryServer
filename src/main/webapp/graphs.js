@@ -33,7 +33,7 @@
              *   ]
              * ]
              */
-            draw: function (title, data) {
+            draw: function (title, data, labels) {
                 // ensure we clear loading indicator
                 clearInterval(that._loading);
                 var options = Object.assign({}, GRAPH_DEFAULTS);
@@ -53,6 +53,7 @@
                         throw typeError;
                     }
 
+
                     var series = data[i];
 
                     var coordinates = [];
@@ -63,7 +64,11 @@
                         })
                     }
 
+                    console.log(labels ? labels[i] : "");
+
                     plotData.push({
+                        name: labels ? labels[i] : "",
+                        showInLegend: !!labels,
                         type: "line",
                         xValueType: "dateTime",
                         dataPoints: coordinates
@@ -84,7 +89,7 @@
                 }
 
                 var t = 0;
-                that._loading = setInterval(function() {
+                return that._loading = setInterval(function() {
                     loadingText(t++);
                 }, 200);
             }
